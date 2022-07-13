@@ -369,7 +369,7 @@ class _TokenCore:  # pylint: disable=too-few-public-methods
         return MintInfo(mint_authority, supply, decimals, is_initialized, freeze_authority)
 
     def _create_account_info(self, info: RPCResponse) -> AccountInfo:
-        if not info:
+        if not info or not info["result"]["value"]:
             raise ValueError("Invalid account owner")
 
         if info["result"]["value"]["owner"] != str(self.program_id):
