@@ -184,6 +184,7 @@ class Token(_TokenCore):  # pylint: disable=too-many-public-methods
         owner: PublicKey,
         skip_confirmation: bool = False,
         recent_blockhash: Optional[Blockhash] = None,
+        opts: Optional[TxOpts] = None,
     ) -> PublicKey:
         """Create an associated token account.
 
@@ -200,10 +201,10 @@ class Token(_TokenCore):  # pylint: disable=too-many-public-methods
         or until the transaction is confirmed.
         """
         # Construct transaction
-        public_key, txn, payer, opts = self._create_associated_token_account_args(
+        public_key, txn, payer, default_opts = self._create_associated_token_account_args(
             owner, skip_confirmation, self._conn.commitment
         )
-        self._conn.send_transaction(txn, payer, opts=opts, recent_blockhash=recent_blockhash)
+        self._conn.send_transaction(txn, payer, opts=opts or default_opts, recent_blockhash=recent_blockhash)
         return public_key
 
     @staticmethod
