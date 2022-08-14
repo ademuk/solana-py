@@ -1457,7 +1457,7 @@ class AsyncClient(_ClientCore):  # pylint: disable=too-many-public-methods
         self,
         tx_sig: str,
         commitment: Optional[Commitment] = None,
-        sleep_seconds: float = 0.5,
+        sleep_seconds: float = 5,
         last_valid_block_height: Optional[int] = None,
     ) -> types.RPCResponse:
         """Confirm the transaction identified by the specified signature.
